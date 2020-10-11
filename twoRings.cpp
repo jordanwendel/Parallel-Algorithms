@@ -46,10 +46,10 @@ int main (int argc, char * argv[]) {
     //Starting point for even processors
     if (my_rank == 0) 
 	{
-        cout << "Processor " << my_rank <<" tells processor " << my_rank + 2 << " that frodo is lame. " << endl;
-        sprintf(message + strlen(message),"%d",my_rank);
-        MPI_Send(message, strlen(message) + 1, MPI_CHAR, my_rank+2, tag, MPI_COMM_WORLD);
-        MPI_Recv(message, 100, MPI_CHAR, p, tag, MPI_COMM_WORLD, &status);
+		cout << "Processor " << my_rank <<" tells processor " << my_rank + 2 << " that frodo is lame. " << endl;
+		sprintf(message + strlen(message),"%d",my_rank);
+		MPI_Send(message, strlen(message) + 1, MPI_CHAR, my_rank+2, tag, MPI_COMM_WORLD);
+		MPI_Recv(message, 100, MPI_CHAR, p, tag, MPI_COMM_WORLD, &status);
 	}
 	
 	//Starting point for odd processors
@@ -66,9 +66,9 @@ int main (int argc, char * argv[]) {
 		//When there is an odd number of total processors
 		else
 		{
-            cout << "Processor " << my_rank << " tells processor "<< p - 2 << " that frodo is just not cool, man. " << endl;
-            sprintf(message+strlen(message),"%d",my_rank);
-            MPI_Send(message, strlen(message) + 1, MPI_CHAR, p - 2, tag, MPI_COMM_WORLD);
+		    cout << "Processor " << my_rank << " tells processor "<< p - 2 << " that frodo is just not cool, man. " << endl;
+		    sprintf(message+strlen(message),"%d",my_rank);
+		    MPI_Send(message, strlen(message) + 1, MPI_CHAR, p - 2, tag, MPI_COMM_WORLD);
 		    MPI_Recv(message, 100, MPI_CHAR, my_rank + 2, tag, MPI_COMM_WORLD, &status);
 		}
 	}
@@ -78,18 +78,18 @@ int main (int argc, char * argv[]) {
 		//The rest of the even processors
 		if (my_rank % 2 == 0)
 		{
-            MPI_Recv(message, 100, MPI_CHAR, my_rank - 2, tag, MPI_COMM_WORLD, &status);
-            cout << "Processor " << my_rank << " tells processor " << (my_rank+2) % p << " that frodo is lame. " << endl;
-            sprintf(message + strlen(message), "%d", my_rank);
-            MPI_Send(message, strlen(message) + 1, MPI_CHAR, (my_rank + 2) % p, tag, MPI_COMM_WORLD);
+		    MPI_Recv(message, 100, MPI_CHAR, my_rank - 2, tag, MPI_COMM_WORLD, &status);
+		    cout << "Processor " << my_rank << " tells processor " << (my_rank+2) % p << " that frodo is lame. " << endl;
+		    sprintf(message + strlen(message), "%d", my_rank);
+		    MPI_Send(message, strlen(message) + 1, MPI_CHAR, (my_rank + 2) % p, tag, MPI_COMM_WORLD);
 		}
 		//The rest of the odd processors
 		else
 		{
-            MPI_Recv(message, 100, MPI_CHAR, (my_rank+2)%p, tag, MPI_COMM_WORLD, &status);
-            cout<<"Processor "<<my_rank<<" tells processor "<< my_rank - 2 << " that frodo is just not cool, man. " << endl;
-            sprintf(message+strlen(message),"%d",my_rank);
-            MPI_Send(message, strlen(message) + 1, MPI_CHAR, my_rank-2, tag, MPI_COMM_WORLD);
+		    MPI_Recv(message, 100, MPI_CHAR, (my_rank+2)%p, tag, MPI_COMM_WORLD, &status);
+		    cout<<"Processor "<<my_rank<<" tells processor "<< my_rank - 2 << " that frodo is just not cool, man. " << endl;
+		    sprintf(message+strlen(message),"%d",my_rank);
+		    MPI_Send(message, strlen(message) + 1, MPI_CHAR, my_rank-2, tag, MPI_COMM_WORLD);
 		}
 		
 	}
